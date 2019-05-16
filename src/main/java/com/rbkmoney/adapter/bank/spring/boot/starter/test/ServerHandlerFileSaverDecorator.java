@@ -1,9 +1,12 @@
 package com.rbkmoney.adapter.bank.spring.boot.starter.test;
 
+import com.rbkmoney.adapter.bank.spring.boot.starter.test.constants.Path;
+import com.rbkmoney.adapter.bank.spring.boot.starter.test.constants.Postfix;
 import com.rbkmoney.adapter.bank.spring.boot.starter.test.utils.SaveIntegrationFileUtils;
 import com.rbkmoney.damsel.proxy_provider.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.thrift.TBase;
 import org.apache.thrift.TException;
 import org.apache.thrift.TSerializer;
 import org.springframework.stereotype.Component;
@@ -16,7 +19,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Component
 public class ServerHandlerFileSaverDecorator implements ProviderProxySrv.Iface {
 
-    public static final String SRC_TEST_RESOURCES_GENERATED_HG = "src/test/resources/generated/hg/";
     private final ProviderProxySrv.Iface serverHandlerLogDecorator;
 
     private ThreadLocal<AtomicInteger> generateCount = ThreadLocal.withInitial(AtomicInteger::new);
@@ -26,59 +28,55 @@ public class ServerHandlerFileSaverDecorator implements ProviderProxySrv.Iface {
 
     @Override
     public RecurrentTokenProxyResult generateToken(RecurrentTokenContext context) throws TException {
-        TSerializer serializer = new TSerializer();
-        byte[] serializeRequest = serializer.serialize(context);
-        String methodName = "generateToken";
-        int count = generateCount.get().incrementAndGet();
-        SaveIntegrationFileUtils.saveFile(serializeRequest, methodName + "Response", SRC_TEST_RESOURCES_GENERATED_HG, count);
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        int count = saveRequest(context, methodName, generateCount);
         RecurrentTokenProxyResult recurrentTokenProxyResult = serverHandlerLogDecorator.generateToken(context);
-        byte[] serializeResult = serializer.serialize(recurrentTokenProxyResult);
-        SaveIntegrationFileUtils.saveFile(serializeResult, methodName + "Result", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        return recurrentTokenProxyResult;
+        return saveResult(methodName, count, recurrentTokenProxyResult);
+    }
+
+    private <T extends TBase> T saveResult(String methodName, int count, T tBase) throws TException {
+        TSerializer serializerResp = new TSerializer();
+        byte[] serializeResult = serializerResp.serialize(tBase);
+        SaveIntegrationFileUtils.saveFile(serializeResult, methodName + Postfix.RESULT, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        return tBase;
     }
 
     @Override
     public RecurrentTokenCallbackResult handleRecurrentTokenCallback(ByteBuffer byteBuffer, RecurrentTokenContext context) throws TException {
-        TSerializer serializer = new TSerializer();
-        byte[] serializeRequest = serializer.serialize(context);
-        String methodName = "handleRecurrentTokenCallback";
-        int count = handleRecurrentTokenCallbackCount.get().incrementAndGet();
-
-        SaveIntegrationFileUtils.saveFile(serializeRequest, methodName + "Response", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        SaveIntegrationFileUtils.saveFile(byteBuffer.array(), methodName + "ByteBuffer", SRC_TEST_RESOURCES_GENERATED_HG, count);
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        int count = saveRequest(context, methodName, handleRecurrentTokenCallbackCount);
+        SaveIntegrationFileUtils.saveFile(byteBuffer.array(), methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
         RecurrentTokenCallbackResult recurrentTokenCallbackResult = serverHandlerLogDecorator.handleRecurrentTokenCallback(byteBuffer, context);
-        byte[] serializeResult = serializer.serialize(recurrentTokenCallbackResult);
-        SaveIntegrationFileUtils.saveFile(serializeResult, methodName + "Result", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        return recurrentTokenCallbackResult;
+        return saveResult(methodName, count, recurrentTokenCallbackResult);
     }
 
     @Override
     public PaymentProxyResult processPayment(PaymentContext context) throws TException {
-        TSerializer serializer = new TSerializer();
-        byte[] serializeRequest = serializer.serialize(context);
-        String methodName = "processPayment";
-        int count = processPaymentCount.get().incrementAndGet();
-
-        SaveIntegrationFileUtils.saveFile(serializeRequest, methodName + "Response", SRC_TEST_RESOURCES_GENERATED_HG, count);
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        int count = saveRequest(context, methodName, processPaymentCount);
         PaymentProxyResult paymentProxyResult = serverHandlerLogDecorator.processPayment(context);
-        byte[] serializeResult = serializer.serialize(paymentProxyResult);
-        SaveIntegrationFileUtils.saveFile(serializeResult, methodName + "Result", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        return paymentProxyResult;
+        return saveResult(methodName, count, paymentProxyResult);
     }
 
     @Override
     public PaymentCallbackResult handlePaymentCallback(ByteBuffer byteBuffer, PaymentContext context) throws TException {
+        String methodName = new Object() {
+        }.getClass().getEnclosingMethod().getName();
+        int count = saveRequest(context, methodName, handlePaymentCallbackCount);
+        SaveIntegrationFileUtils.saveFile(byteBuffer.array(), methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        PaymentCallbackResult paymentCallbackResult = serverHandlerLogDecorator.handlePaymentCallback(byteBuffer, context);
+        return saveResult(methodName, count, paymentCallbackResult);
+    }
+
+    private <T extends TBase> int saveRequest(T context, String methodName, ThreadLocal<AtomicInteger> counter) throws TException {
         TSerializer serializer = new TSerializer();
         byte[] serializeRequest = serializer.serialize(context);
-        String methodName = "handlePaymentCallback";
-        int count = handlePaymentCallbackCount.get().incrementAndGet();
-
-        SaveIntegrationFileUtils.saveFile(serializeRequest, methodName + "Response", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        SaveIntegrationFileUtils.saveFile(byteBuffer.array(), methodName + "ByteBuffer", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        PaymentCallbackResult paymentCallbackResult = serverHandlerLogDecorator.handlePaymentCallback(byteBuffer, context);
-        byte[] serializeResult = serializer.serialize(paymentCallbackResult);
-        SaveIntegrationFileUtils.saveFile(serializeResult, methodName + "Result", SRC_TEST_RESOURCES_GENERATED_HG, count);
-        return paymentCallbackResult;
+        int count = counter.get().incrementAndGet();
+        SaveIntegrationFileUtils.saveFile(serializeRequest, methodName + Postfix.REQUEST, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        return count;
     }
 
 }

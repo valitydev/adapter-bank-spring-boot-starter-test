@@ -6,7 +6,6 @@ import com.rbkmoney.adapter.bank.spring.boot.starter.test.GenerationDataMethod;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -24,7 +23,7 @@ public class SaveIntegrationFileUtils {
             requestString = objectMapper.writeValueAsString(request);
             SaveIntegrationFileUtils.saveFile(requestString.getBytes(), methodName + postfix, targetPath, count);
         } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            log.error("SaveIntegrationFileUtils error when saveJson e: ", e);
         }
     }
 
@@ -33,7 +32,7 @@ public class SaveIntegrationFileUtils {
             byte[] bytes = readFile(methodName + postfix, targetPath, count);
             return objectMapper.readValue(bytes, clazz);
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("SaveIntegrationFileUtils error when readJson e: ", e);
         }
         return null;
     }
@@ -54,10 +53,8 @@ public class SaveIntegrationFileUtils {
                 }
                 Files.write(Paths.get(pathFile + "/" + filename), serialize);
             }
-        } catch (IOException e) {
-            log.error("Error when wright file e: ", e);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            log.error("Error when write file e: ", e);
         }
     }
 
@@ -72,7 +69,7 @@ public class SaveIntegrationFileUtils {
                 return Files.readAllBytes(Paths.get(pathFile + "/" + filename));
             }
         } catch (Exception e) {
-            log.error("Error when wright file e: ", e);
+            log.error("Error when write file e: ", e);
         }
         return new byte[0];
     }

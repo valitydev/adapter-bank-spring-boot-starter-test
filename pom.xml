@@ -13,8 +13,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>8</java.version>
         <spring-boot.version>2.1.0.RELEASE</spring-boot.version>
-        <dockerfile.base.service.tag>bc95d0d6dc13c693acd2b274531a7d604b877bf3</dockerfile.base.service.tag>
-        <dockerfile.registry>dr2.rbkmoney.com</dockerfile.registry>
     </properties>
 
     <dependencies>
@@ -68,21 +66,25 @@
             <groupId>com.rbkmoney</groupId>
             <artifactId>error-mapping-java</artifactId>
             <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney.woody</groupId>
             <artifactId>woody-thrift</artifactId>
             <version>1.1.15</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel</artifactId>
             <version>1.256-2afe121</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.rbkmoney</groupId>
             <artifactId>damsel-utils</artifactId>
             <version>2.1.8</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- test -->
