@@ -42,8 +42,8 @@ public class SaveIntegrationFileUtils {
             StackTraceElement stackTraceElement = findStackElement();
             if (stackTraceElement != null) {
                 String filename = postfixFileName + SEPARATOR + count;
-                String packagePath = stackTraceElement.getFileName().replace(".java", "")
-                        + "/" + stackTraceElement.getMethodName();
+                String packagePath = stackTraceElement.getFileName().replace(".java", "") +
+                        "/" + stackTraceElement.getMethodName();
                 String pathFile = targetPath + packagePath;
                 File dir = new File(targetPath);
                 String absolutePath = dir.getAbsolutePath();
@@ -63,8 +63,8 @@ public class SaveIntegrationFileUtils {
             StackTraceElement stackTraceElement = findStackElement();
             if (stackTraceElement != null) {
                 String filename = postfixFileName + SEPARATOR + count;
-                String packagePath = stackTraceElement.getFileName().replace(".java", "")
-                        + "/" + stackTraceElement.getMethodName();
+                String packagePath = stackTraceElement.getFileName().replace(".java", "") +
+                        "/" + stackTraceElement.getMethodName();
                 String pathFile = targetPath + packagePath;
                 return Files.readAllBytes(Paths.get(pathFile + "/" + filename));
             }
@@ -79,8 +79,8 @@ public class SaveIntegrationFileUtils {
         for (int i = 0; i < Thread.currentThread().getStackTrace().length; i++) {
             StackTraceElement currentStackTrace = Thread.currentThread().getStackTrace()[i];
             String methodName = currentStackTrace.getMethodName();
-            Class<?> aClass = Class.forName(currentStackTrace.getClassName());
-            Method[] methods = aClass.getMethods();
+            Class<?> clazz = Class.forName(currentStackTrace.getClassName());
+            Method[] methods = clazz.getMethods();
             for (Method method : methods) {
                 if (method.getName().equals(methodName) && method.getAnnotation(GenerationDataMethod.class) != null) {
                     return currentStackTrace;
