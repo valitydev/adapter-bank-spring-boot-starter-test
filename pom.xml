@@ -19,15 +19,20 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>8</java.version>
-        <spring-boot.version>2.3.2.RELEASE</spring-boot.version>
-        <damsel.version>1.439-b18f037</damsel.version>
-        <woody.version>[1.1.21,)</woody.version>
-        <error-mapping-java.version>1.0.6</error-mapping-java.version>
+
+        <adapter-client-lib.version>2.1.27</adapter-client-lib.version>
         <adapter-thrift-lib.version>1.0.5</adapter-thrift-lib.version>
+        <adapter-common-lib.version>0.0.26</adapter-common-lib.version>
+
+        <damsel.version>1.439-b18f037</damsel.version>
+
+        <spring-boot.version>2.3.8.RELEASE</spring-boot.version>
+        <woody.version>[1.1.21,)</woody.version>
         <lombok.version>1.18.4</lombok.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <junit.version>4.12</junit.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
+        <error-mapping-java.version>1.0.6</error-mapping-java.version>
+        <junit.version>4.12</junit.version>
     </properties>
 
     <dependencies>
