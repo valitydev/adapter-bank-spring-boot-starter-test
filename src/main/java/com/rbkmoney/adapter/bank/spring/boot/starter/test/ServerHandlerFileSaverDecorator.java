@@ -35,20 +35,27 @@ public class ServerHandlerFileSaverDecorator implements ProviderProxySrv.Iface {
         return saveResult(methodName, count, recurrentTokenProxyResult);
     }
 
-    private <T extends TBase> T saveResult(String methodName, int count, T tBase) throws TException {
+    private <T extends TBase> T saveResult(String methodName, int count, T thriftBase) throws TException {
         TSerializer serializerResp = new TSerializer();
-        byte[] serializeResult = serializerResp.serialize(tBase);
-        SaveIntegrationFileUtils.saveFile(serializeResult, methodName + Postfix.RESULT, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
-        return tBase;
+        byte[] serializeResult = serializerResp.serialize(thriftBase);
+        SaveIntegrationFileUtils.saveFile(serializeResult,
+                methodName + Postfix.RESULT,
+                Path.SRC_TEST_RESOURCES_GENERATED_HG,
+                count);
+        return thriftBase;
     }
 
     @Override
-    public RecurrentTokenCallbackResult handleRecurrentTokenCallback(ByteBuffer byteBuffer, RecurrentTokenContext context) throws TException {
+    public RecurrentTokenCallbackResult handleRecurrentTokenCallback(ByteBuffer byteBuffer,
+                                                                     RecurrentTokenContext context) throws TException {
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         int count = saveRequest(context, methodName, handleRecurrentTokenCallbackCount);
-        SaveIntegrationFileUtils.saveFile(byteBuffer.array(), methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
-        RecurrentTokenCallbackResult recurrentTokenCallbackResult = serverHandlerLogDecorator.handleRecurrentTokenCallback(byteBuffer, context);
+        SaveIntegrationFileUtils
+                .saveFile(byteBuffer.array(), methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG,
+                        count);
+        RecurrentTokenCallbackResult recurrentTokenCallbackResult =
+                serverHandlerLogDecorator.handleRecurrentTokenCallback(byteBuffer, context);
         return saveResult(methodName, count, recurrentTokenCallbackResult);
     }
 
@@ -62,20 +69,26 @@ public class ServerHandlerFileSaverDecorator implements ProviderProxySrv.Iface {
     }
 
     @Override
-    public PaymentCallbackResult handlePaymentCallback(ByteBuffer byteBuffer, PaymentContext context) throws TException {
+    public PaymentCallbackResult handlePaymentCallback(ByteBuffer byteBuffer, PaymentContext context)
+            throws TException {
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         int count = saveRequest(context, methodName, handlePaymentCallbackCount);
-        SaveIntegrationFileUtils.saveFile(byteBuffer.array(), methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
-        PaymentCallbackResult paymentCallbackResult = serverHandlerLogDecorator.handlePaymentCallback(byteBuffer, context);
+        SaveIntegrationFileUtils
+                .saveFile(byteBuffer.array(), methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG,
+                        count);
+        PaymentCallbackResult paymentCallbackResult =
+                serverHandlerLogDecorator.handlePaymentCallback(byteBuffer, context);
         return saveResult(methodName, count, paymentCallbackResult);
     }
 
-    private <T extends TBase> int saveRequest(T context, String methodName, ThreadLocal<AtomicInteger> counter) throws TException {
+    private <T extends TBase> int saveRequest(T context, String methodName, ThreadLocal<AtomicInteger> counter)
+            throws TException {
         TSerializer serializer = new TSerializer();
         byte[] serializeRequest = serializer.serialize(context);
         int count = counter.get().incrementAndGet();
-        SaveIntegrationFileUtils.saveFile(serializeRequest, methodName + Postfix.REQUEST, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        SaveIntegrationFileUtils
+                .saveFile(serializeRequest, methodName + Postfix.REQUEST, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
         return count;
     }
 

@@ -38,14 +38,16 @@ public class ServerHandlerFileReaderDecorator implements ProviderProxySrv.Iface 
     }
 
     @Override
-    public RecurrentTokenCallbackResult handleRecurrentTokenCallback(ByteBuffer byteBuffer, RecurrentTokenContext context) throws TException {
+    public RecurrentTokenCallbackResult handleRecurrentTokenCallback(
+            ByteBuffer byteBuffer, RecurrentTokenContext context) throws TException {
         RecurrentTokenContext recurrentTokenContext = new RecurrentTokenContext();
         int count = handleRecurrentTokenCallbackCount.get().incrementAndGet();
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         readTBase(methodName, recurrentTokenContext, count);
 
-        byte[] bytes1 = SaveIntegrationFileUtils.readFile(methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        byte[] bytes1 = SaveIntegrationFileUtils
+                .readFile(methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
 
         return serverHandlerLogDecorator.handleRecurrentTokenCallback(ByteBuffer.wrap(bytes1), recurrentTokenContext);
     }
@@ -62,21 +64,24 @@ public class ServerHandlerFileReaderDecorator implements ProviderProxySrv.Iface 
     }
 
     private <T extends TBase> T readTBase(String methodName, T newContext, int count) throws TException {
-        byte[] bytes = SaveIntegrationFileUtils.readFile(methodName + Postfix.REQUEST, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
-        TDeserializer tDeserializer = new TDeserializer();
-        tDeserializer.deserialize(newContext, bytes);
+        byte[] bytes = SaveIntegrationFileUtils
+                .readFile(methodName + Postfix.REQUEST, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        TDeserializer thriftDeserializer = new TDeserializer();
+        thriftDeserializer.deserialize(newContext, bytes);
         return newContext;
     }
 
     @Override
-    public PaymentCallbackResult handlePaymentCallback(ByteBuffer byteBuffer, PaymentContext context) throws TException {
+    public PaymentCallbackResult handlePaymentCallback(ByteBuffer byteBuffer, PaymentContext context)
+            throws TException {
         PaymentContext contextNew = new PaymentContext();
         int count = handlePaymentCallbackCount.get().incrementAndGet();
         String methodName = new Object() {
         }.getClass().getEnclosingMethod().getName();
         readTBase(methodName, contextNew, count);
 
-        byte[] bytes1 = SaveIntegrationFileUtils.readFile(methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
+        byte[] bytes1 = SaveIntegrationFileUtils
+                .readFile(methodName + Postfix.BYTE_BUFFER, Path.SRC_TEST_RESOURCES_GENERATED_HG, count);
 
         return serverHandlerLogDecorator.handlePaymentCallback(ByteBuffer.wrap(bytes1), contextNew);
     }
