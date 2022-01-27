@@ -33,7 +33,7 @@
         <slf4j.version>1.7.35</slf4j.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <error-mapping-java.version>1.0.0</error-mapping-java.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
     </properties>
 
     <dependencies>
