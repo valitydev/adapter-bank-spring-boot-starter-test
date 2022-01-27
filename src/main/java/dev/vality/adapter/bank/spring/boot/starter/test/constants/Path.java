@@ -1,4 +1,4 @@
-package com.rbkmoney.adapter.bank.spring.boot.starter.test.constants;
+package dev.vality.adapter.bank.spring.boot.starter.test.constants;
 
 public class Path {
 
