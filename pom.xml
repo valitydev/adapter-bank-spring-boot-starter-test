@@ -17,7 +17,7 @@
     <name>Adapter bank spring boot starter test</name>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>15</java.version>
 
         <adapter-client-lib.version>1.0.1</adapter-client-lib.version>
         <adapter-thrift-lib.version>1.0.0</adapter-thrift-lib.version>
