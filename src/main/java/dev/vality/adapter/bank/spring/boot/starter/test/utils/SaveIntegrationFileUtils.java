@@ -1,8 +1,8 @@
-package com.rbkmoney.adapter.bank.spring.boot.starter.test.utils;
+package dev.vality.adapter.bank.spring.boot.starter.test.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.rbkmoney.adapter.bank.spring.boot.starter.test.GenerationDataMethod;
+import dev.vality.adapter.bank.spring.boot.starter.test.GenerationDataMethod;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;

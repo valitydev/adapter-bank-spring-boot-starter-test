@@ -1,9 +1,9 @@
-package com.rbkmoney.adapter.bank.spring.boot.starter.test;
+package dev.vality.adapter.bank.spring.boot.starter.test;
 
-import com.rbkmoney.adapter.bank.spring.boot.starter.test.constants.Path;
-import com.rbkmoney.adapter.bank.spring.boot.starter.test.constants.Postfix;
-import com.rbkmoney.adapter.bank.spring.boot.starter.test.utils.SaveIntegrationFileUtils;
-import com.rbkmoney.damsel.proxy_provider.*;
+import dev.vality.adapter.bank.spring.boot.starter.test.constants.Path;
+import dev.vality.adapter.bank.spring.boot.starter.test.constants.Postfix;
+import dev.vality.adapter.bank.spring.boot.starter.test.utils.SaveIntegrationFileUtils;
+import dev.vality.damsel.proxy_provider.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.thrift.TBase;
