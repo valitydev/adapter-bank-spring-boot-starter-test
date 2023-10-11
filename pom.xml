@@ -6,12 +6,12 @@
     <parent>
         <groupId>dev.vality</groupId>
         <artifactId>library-parent-pom</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
         <relativePath/>
     </parent>
 
     <artifactId>adapter-bank-spring-boot-starter-test</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <packaging>jar</packaging>
 
     <name>Adapter bank spring boot starter test</name>
@@ -25,12 +25,12 @@
         <adapter-thrift-lib.version>1.0.0</adapter-thrift-lib.version>
         <adapter-common-lib.version>1.0.0</adapter-common-lib.version>
 
-        <damsel.version>1.544-dcd92dd</damsel.version>
+        <damsel.version>1.606-f718741</damsel.version>
 
-        <spring-boot.version>2.6.3</spring-boot.version>
-        <woody.version>1.0.4</woody.version>
-        <lombok.version>1.18.22</lombok.version>
-        <slf4j.version>1.7.35</slf4j.version>
+        <spring-boot.version>2.7.16</spring-boot.version>
+        <woody.version>1.0.5</woody.version>
+        <lombok.version>1.18.30</lombok.version>
+        <slf4j.version>1.7.36</slf4j.version>
         <javax.servlet-api.version>4.0.1</javax.servlet-api.version>
         <error-mapping-java.version>1.0.0</error-mapping-java.version>
         <junit.version>4.12</junit.version>
