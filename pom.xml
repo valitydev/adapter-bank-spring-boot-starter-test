@@ -11,7 +11,7 @@
     </parent>
 
     <artifactId>adapter-bank-spring-boot-starter-test</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
     <packaging>jar</packaging>
 
     <name>Adapter bank spring boot starter test</name>
@@ -27,7 +27,7 @@
 
         <damsel.version>1.544-dcd92dd</damsel.version>
 
-        <spring-boot.version>2.6.3</spring-boot.version>
+        <spring-boot.version>3.3.5</spring-boot.version>
         <woody.version>1.0.4</woody.version>
         <lombok.version>1.18.22</lombok.version>
         <slf4j.version>1.7.35</slf4j.version>
